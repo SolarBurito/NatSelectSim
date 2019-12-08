@@ -4,22 +4,25 @@ class Creature{
 		this.direction = p5.Vector.random2D();
         this.speed = speed_;
         this.velocity = this.direction.mult(0.5*this.speed)
-		this.size = size_;
-		this.hunger = Math.log(Math.pow(size_+1, 5));
+		this.size = size_;	
 		this.confidence = Math.pow((Math.pow(speed_, 2)+ Math.pow(size_, 2)),0.5);
-		this.lifespan = 1000 + Math.pow(speed_+1, 2) + Math.pow(size_+1, 1.5) + this.hunger/2 + this.confidence;
-		this.isDead = false;
+		this.lifespan = 3000 + Math.pow(speed_+1, 2) + Math.pow(size_+1, 1.5) + this.hunger/2 + this.confidence;
+		this.hunger = this.lifespan;
+        this.isDead = false;
 		this.timeAlive = 0;
         this.foodEaten = 100;
 		this.xPOS = x;
 		this.yPOS = y;
+        this.cooldown = 0;
 		print("Creature born");
 	}
   
   	Mate(cr, arr) {		
-      if (arr.length < 20){
+      if (this.cooldown < 0 && cr.cooldown < 0){
           let crn = new Creature(this.avg(this.speed,cr.speed),this.avg(this.size,cr.size),this.xPOS+100,this.yPOS+100);
           arr.push(crn);
+          this.cooldown += 300;
+          cr.cooldown += 300;
       }
 	}
   
@@ -47,7 +50,7 @@ class Creature{
 		let conThresh = Math.abs(this.confidence-cr.confidence);		
 		if (conThresh < 1) {
 			this.Mate(cr, arr);
-		}else if (conThresh >= 1 ) {
+		}else if (conThresh >= 5 ) {
 			this.Fight(cr);
 		}
 	}
@@ -81,7 +84,9 @@ class Creature{
     }
     
     draw(){
-      circle(this.xPOS,this.yPOS,this.size*50);
+      let c = color(255,255,255);
+      fill(c);
+      circle(this.xPOS,this.yPOS,this.size);
     }
   
     edge(width, height){
@@ -101,4 +106,11 @@ class Creature{
       
     }
 
+  
+    eat(food, fList){
+      food.eaten = true;
+      food.update(fList);
+      this.foodEaten += 10;
+      console.log("Creature Ate");
+    }
 }
