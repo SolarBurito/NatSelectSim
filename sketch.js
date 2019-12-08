@@ -1,5 +1,6 @@
 var crList = [];
 var fList = [];
+var amt = 30;
 
 function setup() {
   width = 0.75*displayWidth;
@@ -8,13 +9,26 @@ function setup() {
   frameRate(fr);
   createCanvas(width, height);
 
-  for (i = 0; i < 30; i++) {
-    crList.push(new Creature(Math.random() * 20, random(75,200), Math.random() * 1280, Math.random() * 720));
+  for (i = 0; i < amt; i++) {
+    crList.push(new Creature(Math.random() * 20, random(75,200), random(0,width), random(0,height)));
   }
 
-  for (i = 0; i < 50; i++) {
-    fList.push(new Food());
+  for (i = 0; i < 35; i++) {
+    fList.push(new Food(width,height));
   }
+  
+  resetButton = createButton("Reset");
+  resetButton.size(0.25*displayWidth,50);
+  resetButton.position(width,0);
+  resetButton.mousePressed(restart);
+  
+  
+
+}
+
+function restart(){
+  clear();
+  setup();
 
 }
 
@@ -57,7 +71,7 @@ function draw() {
   }
   
   if (fList.length < 25){
-    fList.push(new Food());
+    fList.push(new Food(width,height));
   }
   
   for (i = 0;i < crList.length;i++){
@@ -75,7 +89,7 @@ function draw() {
   }
   
   if(crLen == 0){
-    frameCount = -1;
+    setup();
   }
   
 }

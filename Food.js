@@ -1,7 +1,7 @@
 class Food{
-  constructor(){
+  constructor(width,height){
     this.pos = new p5.Vector();
-    this.pos.set(random(0,1280),random(0,720));
+    this.pos.set(random(0,width),random(0,height));
     this.eaten = false;
   }
   
