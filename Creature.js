@@ -14,11 +14,18 @@ class Creature{
 		this.xPOS = x;
 		this.yPOS = y;
         this.cooldown = 0;
+      
+        this.red = map(this.confidence,75,200,0,255,true);
+        this.green = map(this.size,50,200,0,255,true);
+        this.blue = map(this.speed,5,30,0,255,true);
+          
+      
 		print("Creature born");
+      
 	}
   
   	Mate(cr, arr) {		
-      if (this.cooldown < 0 && cr.cooldown < 0){
+      if (this.cooldown < 1 && cr.cooldown < 1 && arr.length < 50){
           let crn = new Creature(this.avg(this.speed,cr.speed),this.avg(this.size,cr.size),this.xPOS+100,this.yPOS+100);
           arr.push(crn);
           this.cooldown += 300;
@@ -48,9 +55,9 @@ class Creature{
   
   	Encounter(cr, arr) {
 		let conThresh = Math.abs(this.confidence-cr.confidence);		
-		if (conThresh < 1) {
+		if (conThresh < 20) {
 			this.Mate(cr, arr);
-		}else if (conThresh >= 5 ) {
+		}else if (conThresh >= 20 ) {
 			this.Fight(cr);
 		}
 	}
@@ -84,7 +91,7 @@ class Creature{
     }
     
     draw(){
-      let c = color(255,255,255);
+      let c = color(this.red,this.green,this.blue);
       fill(c);
       circle(this.xPOS,this.yPOS,this.size);
     }

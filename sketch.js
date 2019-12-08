@@ -10,7 +10,7 @@ function setup() {
   createCanvas(width, height);
 
   for (i = 0; i < amt; i++) {
-    crList.push(new Creature(Math.random() * 20, random(75,200), random(0,width), random(0,height)));
+    crList.push(new Creature(random(5,30), random(50,200), random(0,width), random(0,height)));
   }
 
   for (i = 0; i < 35; i++) {
@@ -60,7 +60,7 @@ function draw() {
 
   for (i = 0; i < crList.length - 1; i++) {
     for (j = i + 1; j < crList.length - 1; j++) {
-      if (Math.abs(crList[i].xPOS - crList[j].xPOS < 1) && Math.abs(crList[i].yPOS - crList[j].yPOS < 1)) {
+      if (dist(crList[i].xPOS,crList[i].yPOS,crList[j].xPOS,crList[j].yPOS) < (0.5*(crList[i].size+crList[j].size))) {
         crList[i].Encounter(crList[j], crList);
       }
     }
