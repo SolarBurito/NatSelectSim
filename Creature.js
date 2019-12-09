@@ -34,8 +34,8 @@ class Creature{
 	}
   
   	Fight (cr) {
-		let prowess_1 = this.speed - this.size + 1/2*(this.confidence+this.confidence);
-		let prowess_2 = cr.speed - cr.size + 1/2*(cr.confidence+cr.confidence);
+		let prowess_1 = this.speed + 0.5*this.size + 0.25*this.confidence;
+		let prowess_2 = 0.5*cr.speed + 0.25*cr.size + cr.confidence;
 		if (prowess_1 > prowess_2) {
 			cr.isDead = true;
 			return this;
@@ -54,10 +54,11 @@ class Creature{
 	}
   
   	Encounter(cr, arr) {
-		let conThresh = Math.abs(this.confidence-cr.confidence);		
-		if (conThresh < 20) {
+		let conThresh = Math.abs(this.confidence-cr.confidence);
+		let rng = random(1,100);		
+		if (conThresh < 25) {
 			this.Mate(cr, arr);
-		}else if (conThresh >= 20 ) {
+		}else if (conThresh > 75 ) {
 			this.Fight(cr);
 		}
 	}

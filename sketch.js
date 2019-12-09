@@ -34,10 +34,7 @@ function restart(){
 
 function draw() {
   background(220);
-  crLen = crList.length;
-  fLen = fList.length;
-  
-
+ 
   for (i = 0; i < crList.length; i++) {
     crList[i].draw();
     crList[i].update();
@@ -88,8 +85,8 @@ function draw() {
     console.log(crList.length);
   }
   
-  if(crLen == 0){
-    setup();
+  if(crList.length == 0){
+    restart();
   }
   
 }
