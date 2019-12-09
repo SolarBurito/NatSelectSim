@@ -28,13 +28,18 @@ function setup() {
 
 function restart(){
   clear();
+  crList = [];
+  fList = []
   setup();
 
 }
 
 function draw() {
   background(220);
- 
+  crLen = crList.length;
+  fLen = fList.length;
+  
+
   for (i = 0; i < crList.length; i++) {
     crList[i].draw();
     crList[i].update();
@@ -86,7 +91,7 @@ function draw() {
   }
   
   if(crList.length == 0){
-    restart();
+    setup();
   }
   
 }
