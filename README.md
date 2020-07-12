@@ -11,9 +11,7 @@ Current Features
 -Creatures who have similar confidences will mate, and their offspring has traits based on it's parents.
 
 -Creatures have a lifespan, and a timeLived trait. When timeLived is greater that lifespan, the creature will die.
--------------------------
-Future Features
--------------------------
+
 -Creatures will have hunger and foodEaten traits. When food eaten is signifigantly lower that hunger, the creature will starve
 
 -Hunger is calculated based on size and speed.
